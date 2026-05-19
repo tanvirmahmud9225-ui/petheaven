@@ -10,13 +10,19 @@ import { BsCurrencyDollar } from 'react-icons/bs';
 import { MdOutlineHealthAndSafety } from 'react-icons/md';
 import { TbVaccine } from 'react-icons/tb';
 import AdoptionCard from '@/components/AdoptionCard';
+import { auth } from '@/lib/auth';
+import { headers } from 'next/headers';
 
 const PetDetailsPage = async ({ params }) => {
-
     const { petId } = await params;
 
 
-    const singlePet = await getPetById(petId);
+    const { token } = await auth?.api.getToken({
+        headers: await headers()
+    })
+
+
+    const singlePet = await getPetById(petId, token);
     const { petName, _id, species, breed, age, location, gender, imageURL, updatedAt, statusownerEmail, description, adoptionFee, adoptionFeelocation, vaccinationStatus, healthStatus, status } = singlePet;
 
 
