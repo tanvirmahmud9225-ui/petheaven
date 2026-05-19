@@ -1,8 +1,15 @@
 import { getPetById } from '@/lib/data';
 import React from 'react';
-import { Chip } from '@heroui/react';
+import { Button, Chip, DateField } from '@heroui/react';
 import { BookOpen, Clock, BarChart, Users } from 'lucide-react';
 import Image from 'next/image';
+import { LuPawPrint } from 'react-icons/lu';
+import { FaRegCalendarMinus, FaUser } from 'react-icons/fa';
+import { FaMapLocationDot } from 'react-icons/fa6';
+import { BsCurrencyDollar } from 'react-icons/bs';
+import { MdOutlineHealthAndSafety } from 'react-icons/md';
+import { TbVaccine } from 'react-icons/tb';
+import AdoptionCard from '@/components/AdoptionCard';
 
 const PetDetailsPage = async ({ params }) => {
 
@@ -14,10 +21,14 @@ const PetDetailsPage = async ({ params }) => {
 
 
     const featuredItems = [
-        { icon: Clock, label: course.duration || '12h 30m' },
-        { icon: BarChart, label: course.level || 'Beginner' },
-        { icon: BookOpen, label: `${course.totalLessons || 24} Lessons` },
-        { icon: Users, label: `${course.enrollmentCount || 0} Students` },
+        { icon: LuPawPrint, name: "Species", label: species || '12h 30m' },
+        { icon: LuPawPrint, name: "Breed", label: breed || 'Beginner' },
+        { icon: FaRegCalendarMinus, name: "Age", label: `${age || 24} Years Old` },
+        { icon: FaUser, name: "Gender", label: `${gender || 0} ` },
+        { icon: FaMapLocationDot, name: "Location", label: `${location || 0} ` },
+        { icon: BsCurrencyDollar, name: "Adoption Fee", label: `${adoptionFee || 0} ` },
+        { icon: MdOutlineHealthAndSafety, name: "Health Status", label: `${healthStatus || 0} ` },
+        { icon: TbVaccine, name: "Vaccinated", label: `${vaccinationStatus || 0} ` },
     ];
 
 
@@ -25,11 +36,11 @@ const PetDetailsPage = async ({ params }) => {
 
     return (
         <div className="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
-                <div className="lg:col-span-2 space-y-8">
-                    <div className="relative group overflow-hidden rounded-[2.5rem] shadow-2xl aspect-video">
+            <div className="grid grid-cols-1 lg:grid-cols-7 gap-8 items-start">
+                <div className="lg:col-span-4 space-y-8">
+                    <div className="relative group overflow-hidden rounded-[1rem] shadow-2xl aspect-15/12">
                         <Image
-                            src='https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200'
+                            src={imageURL}
                             alt="Course Thumbnail"
                             fill
                             className="object-cover transform transition duration-700 group-hover:scale-105"
@@ -38,70 +49,45 @@ const PetDetailsPage = async ({ params }) => {
                             <Chip
                                 color="primary"
                                 variant="solid"
-                                className="font-bold shadow-xl"
+                                className="font-bold shadow-xl text-lg px-3 py-1"
                             >
-                                Premium
+                                {status}
                             </Chip>
                         </div>
                     </div>
 
                     <div className="space-y-4">
-                        <h1 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight leading-tight">
-                            Mastering Next - From Beginner to Pro
-                        </h1>
+                        <div className='flex items-center justify-between'>
+                            <h1 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight leading-tight">
+                                {petName}
+                            </h1>
+                            <p className='text-2xl font-bold'><span className='text-gray-500'>Adoption Fee:</span> ${adoptionFee}</p>
+                        </div>
                         <p className="text-xl text-slate-500 leading-relaxed">
-                            Master the core concepts of this subject with our comprehensive guide designed for all skill levels.
+                            {description}
                         </p>
                     </div>
 
                     <div className="flex flex-wrap gap-4 pt-8 border-t border-border">
                         {featuredItems.map((item, i) => (
-                            <div
-                                key={i}
-                                className="flex items-center gap-3 bg-slate-100 px-6 py-3 rounded-2xl border border-slate-200 text-slate-900 font-bold hover:bg-white hover:shadow-lg transition-all duration-300"
+                            <div key={i}
+                                className="flex items-center justify-between gap-3 bg-slate-100 px-6 py-3 rounded-2xl border border-slate-200 text-slate-900 font-bold hover:bg-white hover:shadow-lg transition-all duration-300"
                             >
-                                <item.icon className="w-5 h-5 text-blue-600" />
-                                <span>{item.label}</span>
+                                <div className='flex items-center gap-3'>
+                                    <item.icon className="w-5 h-5 text-[#68c69b]" />
+                                    <span className='text-gray-500'> {item.name}</span> :
+                                </div>
+                                <div>
+                                    <span> {item.label}</span>
+                                </div>
                             </div>
                         ))}
                     </div>
 
-
-                    <p className="text-xs font-bold text-slate-400 italic">
-                        Last enrolled:
-                    </p>
-
                 </div>
 
-                <div className="lg:col-span-1">
-                    <div className="sticky top-24 bg-white/70 backdrop-blur-md p-8 rounded-[2rem] border border-white/20 shadow-2xl space-y-8">
-                        <div className="space-y-2">
-                            <p className="text-sm font-bold text-slate-500 uppercase tracking-widest">Course Price</p>
-                            <div className="flex items-baseline gap-2">
-                                <span className="text-5xl font-black text-blue-600">${course.price || 'Free'}</span>
-                                {course.price && <span className="text-slate-400 line-through font-bold">$199</span>}
-                            </div>
-                        </div>
-
-                        <div className="space-y-4">
-                            <p className="text-slate-700 font-medium">
-                                <strong>Instructor:</strong>  Industry Expert
-                            </p>
-                            <div className="w-full h-px bg-slate-100"></div>
-                            <ul className="space-y-3">
-                                {['Lifetime Access', 'Expert Guidance', 'Verified Certificate'].map((item, i) => (
-                                    <li
-                                        key={i}
-                                        className="flex items-center gap-3 text-sm font-bold text-slate-500"
-                                    >
-                                        <div className="w-1.5 h-1.5 bg-blue-600 rounded-full"></div>
-                                        {item}
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                        <p className="text-center text-xs text-slate-500 font-bold">30-Day Money-Back Guarantee • Secure Payment</p>
-                    </div>
+                <div className="lg:col-span-3">
+                    <AdoptionCard singlePet={singlePet} />
                 </div>
             </div>
         </div>
