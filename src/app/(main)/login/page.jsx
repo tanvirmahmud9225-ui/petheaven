@@ -12,10 +12,15 @@ import { TfiEmail, TfiLock } from "react-icons/tfi";
 const LoginPage = () => {
     const [isVisible, setIsVisible] = useState(false);
 
+
     const onSubmit = async (e) => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget)
         const userData = Object.fromEntries(formData.entries())
+
+
+
+
 
         const { data, error } = await authClient.signIn.email({
             email: userData.email,
@@ -24,12 +29,17 @@ const LoginPage = () => {
             callbackURL: "/",
         });
 
+
+
+
         if (data) {
             alert("Successfully Logged In")
         }
         if (error) {
             alert(error.message)
         }
+        const { data: tokenData } = await authClient.token()
+
     }
 
     const handleGoogleSignIn = async () => {
