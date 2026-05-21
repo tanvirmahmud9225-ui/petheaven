@@ -83,7 +83,7 @@ export function MainNavbar() {
                                             <p className="font-bold text-sm">Welcome back!</p>
                                             <p className="text-xs truncate text-slate-500">sakib@gmail.com</p>
                                         </div>
-                                        <Link href="/dashboard" className="px-4 py-2 text-sm hover:bg-muted flex items-center gap-3 transition-colors">
+                                        <Link href="/dashboard/myRequests" className="px-4 py-2 text-sm hover:bg-muted flex items-center gap-3 transition-colors">
                                             <LayoutDashboard className="w-4 h-4" /> Dashboard
                                         </Link>
                                         <Link href="/settings" className="px-4 py-2 text-sm hover:bg-muted flex items-center gap-3 transition-colors">

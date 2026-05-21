@@ -1,6 +1,7 @@
 "use client";
 import DasNavBar from '@/components/DasNavBar';
 import { Button, ListBox, ListBoxItem, Tab, Tabs } from '@heroui/react';
+import { PawPrint } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React, { useState } from 'react';
@@ -55,6 +56,19 @@ const layout = ({ children }) => {
                     </ListBoxItem>
 
                     <ListBoxItem
+                        key="/dashboard/allpetsdash"
+                        textValue="All pets"
+                        as={Link}
+                        href="/dashboard/allpetsdash"
+                        onClick={() => setIsOpen(false)}
+                    >
+                        <div className="w-full h-full flex items-center gap-2">
+                            <PawPrint /> All Pets
+                        </div>
+                    </ListBoxItem>
+
+
+                    <ListBoxItem
                         key="/dashboard/myLisiting"
                         textValue="My Listings"
                         as={Link}
@@ -65,6 +79,8 @@ const layout = ({ children }) => {
                             ❤️ My Listings
                         </div>
                     </ListBoxItem>
+
+
                 </ListBox>
             </div>
 

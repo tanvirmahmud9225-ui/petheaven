@@ -2,16 +2,19 @@
 import { authClient } from "@/lib/auth-client";
 
 import { Button, Modal } from "@heroui/react";
+
 const DeleteRequest = ({ id }) => {
 
-    const handleDeleteRequest = async () => {
 
+
+    const handleDeleteRequest = async () => {
+        // const session = await auth.api.getSession({
+        //     headers: await headers()
+        // })
 
 
         const { token } = await authClient.token()
         console.log(token);
-
-
 
         const res = await fetch(`http://localhost:8000/petrequest/${id}`, {
             method: "DELETE",
@@ -21,8 +24,10 @@ const DeleteRequest = ({ id }) => {
             },
         });
         const data = await res.json();
-        console.log(data);
 
+        if (data.deletedCount > 0) {
+            router.refresh()
+        }
         return data
     }
 

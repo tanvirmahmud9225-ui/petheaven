@@ -38,7 +38,8 @@ const AdoptionCard = ({ singlePet }) => {
             ...adoptData,
             uerId: user.id,
             petImage: imageURL,
-            status
+            status,
+            petId: _id,
         }
 
 

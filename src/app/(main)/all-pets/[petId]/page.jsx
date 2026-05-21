@@ -12,6 +12,8 @@ import { TbVaccine } from 'react-icons/tb';
 import AdoptionCard from '@/components/AdoptionCard';
 import { auth } from '@/lib/auth';
 import { headers } from 'next/headers';
+import Link from 'next/link';
+import { BiLeftArrow } from 'react-icons/bi';
 
 const PetDetailsPage = async ({ params }) => {
     const { petId } = await params;
@@ -32,7 +34,7 @@ const PetDetailsPage = async ({ params }) => {
         { icon: FaRegCalendarMinus, name: "Age", label: `${age || 24} Years Old` },
         { icon: FaUser, name: "Gender", label: `${gender || 0} ` },
         { icon: FaMapLocationDot, name: "Location", label: `${location || 0} ` },
-        { icon: BsCurrencyDollar, name: "Adoption Fee", label: `${adoptionFee || 0} ` },
+        { icon: BsCurrencyDollar, name: "Adoption Fee", label: `$${adoptionFee || 0} ` },
         { icon: MdOutlineHealthAndSafety, name: "Health Status", label: `${healthStatus || 0} ` },
         { icon: TbVaccine, name: "Vaccinated", label: `${vaccinationStatus || 0} ` },
     ];
@@ -42,7 +44,8 @@ const PetDetailsPage = async ({ params }) => {
 
     return (
         <div className="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-7 gap-8 items-start">
+            <Link href={'/all-pets'}><Button className={'rounded-lg border-gray-300'} variant='outline'><BiLeftArrow /> Back To All Pets</Button></Link>
+            <div className="grid grid-cols-1 lg:grid-cols-7 mt-3 gap-8 items-start">
                 <div className="lg:col-span-4 space-y-8">
                     <div className="relative group overflow-hidden rounded-[1rem] shadow-2xl aspect-15/12">
                         <Image
