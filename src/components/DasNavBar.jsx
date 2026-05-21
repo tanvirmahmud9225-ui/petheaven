@@ -10,15 +10,11 @@ import { MdOutlinePets } from "react-icons/md";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 
-export function MainNavbar() {
+const DasNavBar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
 
-    useEffect(() => {
-        const handleScroll = () => setScrolled(window.scrollY > 10);
-        window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
-    }, []);
+
 
     const { data: session, isPending } = authClient.useSession()
     const user = isPending ? <p>Loading........</p> : session?.user;
@@ -38,9 +34,12 @@ export function MainNavbar() {
 
 
 
+
+
+
+
     return (
-        <nav className={`sticky top-0 w-full z-50 transition-all duration-300 ${scrolled ? "bg-white/70 backdrop-blur-md shadow-sm py-2" : "bg-slate-50 py-4"
-            }`}>
+        <nav className={`w-full z-50  duration-300 border-t border-b border-gray-300`}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between h-16 items-center">
                     <div className="flex items-center">
@@ -148,4 +147,6 @@ export function MainNavbar() {
             )}
         </nav>
     );
-}
+};
+
+export default DasNavBar;

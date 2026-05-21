@@ -1,10 +1,11 @@
 'use client';
 
-import { Button, Input, Calendar, DateField, DatePicker, Label } from '@heroui/react';
+import { Button, Input, Calendar, DateField, DatePicker, Label, TextArea } from '@heroui/react';
 
 import Link from 'next/link';
 import { User, Mail, Lock, ArrowRight } from 'lucide-react';
 import { authClient } from '@/lib/auth-client';
+import { toast } from 'react-toastify';
 
 
 const AdoptionCard = ({ singlePet }) => {
@@ -14,6 +15,49 @@ const AdoptionCard = ({ singlePet }) => {
 
     const { data: session, isPending } = authClient.useSession()
     const user = isPending ? <p>Loading........</p> : session?.user;
+
+
+
+
+
+    const handleAdoptRequest = async (e) => {
+
+        const formData = new FormData(e.target);
+        const adoptData = Object.fromEntries(formData.entries())
+
+
+        const { data: jwtToken } = await authClient.token();
+        const token = jwtToken?.token
+
+        if (!token) {
+            toast.error("authentication faild. Enrollment not add.")
+            return
+        }
+
+        const updateData = {
+            ...adoptData,
+            uerId: user.id,
+            petImage: imageURL,
+            status
+        }
+
+
+        const res = await fetch(`http://localhost:8000/petrequest/${_id}`, {
+            method: "POST",
+            headers: {
+                "content-type": "application/json",
+                authorization: `Bearer ${token}`
+            },
+            body: JSON.stringify(updateData)
+        })
+
+        const data = await res.json();
+        console.log(data);
+
+        return data;
+    }
+
+
 
     return (
         <div>
@@ -29,6 +73,7 @@ const AdoptionCard = ({ singlePet }) => {
                         </div>
 
                         <form
+                            onSubmit={handleAdoptRequest}
                             className="space-y-4"
                         >
                             <div className="space-y-2">
@@ -43,7 +88,7 @@ const AdoptionCard = ({ singlePet }) => {
                                     readOnly={true}
                                     defaultValue={petName}
                                     placeholder="Enter your name"
-                                    name="name"
+                                    name="petName"
                                     startContent={<User className="w-5 h-5 text-slate-400" />}
                                     className={`cursor-not-allowed border-2 border-slate-200 hover:border-blue-600/50 focus-within:border-blue-600 transition-all duration-300 bg-white w-full rounded-2xl`}
                                 />
@@ -61,7 +106,7 @@ const AdoptionCard = ({ singlePet }) => {
                                     readOnly={true}
                                     defaultValue={user?.name}
                                     placeholder="Enter your name"
-                                    name="name"
+                                    name="user"
                                     startContent={<User className="w-5 h-5 text-slate-400" />}
                                     className="border-2 cursor-not-allowed border-slate-200 hover:border-blue-600/50 focus-within:border-blue-600 transition-all duration-300 bg-white w-full rounded-2xl"
                                 />
@@ -88,8 +133,8 @@ const AdoptionCard = ({ singlePet }) => {
 
 
 
-                            <DatePicker className="w-full text-sm font-bold text-slate-700 ml-1" name="date">
-                                <Label>Date</Label>
+                            <DatePicker className="w-full text-sm font-bold text-slate-700 ml-1" name="pickupdate">
+                                <Label className='text-black'>Date</Label>
                                 <DateField.Group fullWidth>
                                     <DateField.Input>{(segment) => <DateField.Segment segment={segment} />}</DateField.Input>
                                     <DateField.Suffix>
@@ -122,6 +167,16 @@ const AdoptionCard = ({ singlePet }) => {
                                     </Calendar>
                                 </DatePicker.Popover>
                             </DatePicker>
+
+                            <div className="flex flex-col gap-2">
+                                <Label htmlFor="textarea-rows-3" className='text-black'>Message to Owner</Label>
+                                <TextArea
+                                    aria-label="Short feedback"
+                                    id="textarea-rows-3"
+                                    placeholder={`Tell the owner why you'd be a great match for ${petName}`}
+                                    rows={3}
+                                />
+                            </div>
 
                             <Button
                                 color="primary"
