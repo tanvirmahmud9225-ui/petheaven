@@ -29,7 +29,7 @@ export function MainNavbar() {
         await authClient.signOut({
             fetchOptions: {
                 onSuccess: () => {
-                    router.push("/"); // redirect to login page
+                    router.replace("/"); // redirect to login page
                 },
             },
         });
@@ -75,20 +75,18 @@ export function MainNavbar() {
                                         />
                                         <div className="text-left hidden lg:block">
                                             <p className="text-sm font-bold truncate max-w-25">{user.name}</p>
-                                            <p className="text-[10px] text-slate-500">Student</p>
+
                                         </div>
                                     </button>
                                     <div className="absolute right-0 top-12 w-56 bg-white border border-slate-200 rounded-2xl shadow-2xl hidden group-hover:flex flex-col py-2 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
                                         <div className="px-4 py-3 border-b border-slate-100">
                                             <p className="font-bold text-sm">Welcome back!</p>
-                                            <p className="text-xs truncate text-slate-500">sakib@gmail.com</p>
+                                            <p className="text-xs truncate text-slate-500">{user?.email}</p>
                                         </div>
                                         <Link href="/dashboard/myRequests" className="px-4 py-2 text-sm hover:bg-muted flex items-center gap-3 transition-colors">
                                             <LayoutDashboard className="w-4 h-4" /> Dashboard
                                         </Link>
-                                        <Link href="/settings" className="px-4 py-2 text-sm hover:bg-muted flex items-center gap-3 transition-colors">
-                                            <User className="w-4 h-4" /> Settings
-                                        </Link>
+
                                         <button
                                             onClick={() => handleSignOut()}
                                             className="px-4 py-2 text-sm text-red-500 hover:bg-red-50 flex items-center gap-3 transition-colors text-left">

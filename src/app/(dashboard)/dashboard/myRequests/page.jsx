@@ -1,16 +1,24 @@
+import AdoptedRequest from '@/components/AdoptedRequest';
 import DeleteRequest from '@/components/DeleteRequest';
+import { auth } from '@/lib/auth';
 import { getPetRequest } from '@/lib/data';
 import { Button, Table } from '@heroui/react';
+import { headers } from 'next/headers';
 import Link from 'next/link';
 import React from 'react';
 
 const MyRequestPage = async () => {
 
-    const adoptionRequest = await getPetRequest()
+    const session = await auth.api.getSession({
+        headers: await headers()
+    })
+    const id = session?.user?.id;
 
+    const { token } = await auth.api.getToken({
+        headers: await headers()
+    })
 
-
-
+    const adoptionRequest = await getPetRequest(id, token)
 
 
 
@@ -32,11 +40,17 @@ const MyRequestPage = async () => {
                                 adoptionRequest.map(request => <Table.Row key={request._id}>
                                     <Table.Cell>{request.petName}</Table.Cell>
                                     <Table.Cell>{request.adoptAt}</Table.Cell>
-                                    <Table.Cell>{request.pickupdate}</Table.Cell>
+                                    <Table.Cell>{
+
+                                        new Date(request.pickupdate).toLocaleDateString('en-GB', {
+                                            day: 'numeric',
+                                            month: 'long',
+                                            year: 'numeric'
+                                        })
+                                    }</Table.Cell>
                                     <Table.Cell>{request.status}</Table.Cell>
                                     <Table.Cell className={'flex justify-center gap-3'}>
                                         <Link href={`/all-pets/${request.petId}`}><Button>View</Button></Link>
-                                        <Button>Adopt</Button>
                                         <DeleteRequest id={request._id} />
                                     </Table.Cell>
                                 </Table.Row>)

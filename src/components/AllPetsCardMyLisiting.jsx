@@ -1,35 +1,23 @@
-'use client'
-import { authClient } from "@/lib/auth-client";
+
 import { Button, Chip } from "@heroui/react";
 import { BookOpen, Clock } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
+
 import { GoDotFill } from "react-icons/go";
 import { IoLocationSharp } from "react-icons/io5";
+import PetRequestShowCard from "./PetRequestShowCard";
+import DeleteCard from "./DeleteCard";
+import { getPetRequest } from "@/lib/data";
 
-const AllPetsCardDash = ({ pet }) => {
-    const { petName, _id, species, breed, age, location, gender, imageURL, updatedAt, statusownerEmail, description, adoptionFee, adoptionFeelocation, vaccinationStatus, healthStatus, status } = pet;
+const AllPetsCardMyLisiting = ({ pet }) => {
+    const { petName, _id, species, breed, age, location, gender, imageURL, status } = pet;
 
 
-    const handleDeletePet = async () => {
-        const { token } = await authClient.token()
-        console.log(token);
 
-        const res = await fetch(`http://localhost:8000/allpets/${_id}`, {
-            method: "DELETE",
-            headers: {
-                'content-type': 'application/json',
-                authorization: `Bearer ${token}`
-            },
-        })
-        const data = await res.json()
 
-        if (data.acknowledged) {
-            router.refresh()
-        }
-        return data
-    }
+
 
 
     return (
@@ -84,24 +72,31 @@ const AllPetsCardDash = ({ pet }) => {
                     <p>{location}</p>
                 </div>
 
-                <div className="pt-2 mt-auto border-t border-slate-100 flex gap-8 items-center">
+                <div className="pt-2 mt-auto border-t border-slate-100 space-y-3">
                     {/* <span className="text-2xl font-black text-[#68c69b]">${adoptionFee}</span> */}
-                    <Link href={`/all-pets/${_id}`} className="w-full">
-                        <Button className={'w-full'} variant="outline">
-                            View Details
-                        </Button>
-                    </Link>
-                    <Button
-                        // variant="flat"
-                        onClick={handleDeletePet}
-                        className="font-bold w-full bg-[#68c69b] rounded-2xl px-6"
-                    >
-                        Delete Pet
-                    </Button>
+                    <div className="flex gap-4 items-center">
+                        <Link href={`/all-pets/${_id}`} className="w-full h-full flex items-center justify-center  group">
+                            <Button className={'w-full border-gray-300'} variant="outline">
+                                View Details
+                            </Button>
+                        </Link>
+                        <Link href={`/editpet/${_id}`} className="w-full h-full items-center justify-center group">
+                            <Button
+
+                                className="font-bold w-full border-gray-300 rounded-2xl px-6"
+                            >
+                                Edit
+                            </Button></Link>
+                    </div>
+                    <div className="flex gap-4 items-center">
+
+                        <PetRequestShowCard id={_id} status={status} />
+                        <DeleteCard _id={_id} />
+                    </div>
                 </div>
             </div>
         </div>
     );
 };
 
-export default AllPetsCardDash;
+export default AllPetsCardMyLisiting;

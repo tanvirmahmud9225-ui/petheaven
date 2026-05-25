@@ -29,11 +29,7 @@ const RegisterPage = () => {
             callbackURL: "/",
         });
 
-        if (error) {
-            alert(error.message)
-        }
         if (data) {
-            alert("Successfull Sing Up")
             router.push('/')
         }
     }

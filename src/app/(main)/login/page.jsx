@@ -29,17 +29,6 @@ const LoginPage = () => {
             callbackURL: "/",
         });
 
-
-
-
-        if (data) {
-            alert("Successfully Logged In")
-        }
-        if (error) {
-            alert(error.message)
-        }
-        const { data: tokenData } = await authClient.token()
-
     }
 
     const handleGoogleSignIn = async () => {

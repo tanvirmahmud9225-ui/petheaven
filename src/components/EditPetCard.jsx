@@ -1,20 +1,22 @@
 'use client'
 import { authClient } from '@/lib/auth-client';
+import { getPetById } from '@/lib/data';
 import { FieldError, Input, Label, TextField, Select, ListBox, TextArea, Button, Form } from '@heroui/react';
 import { useRouter } from 'next/navigation';
+
+
 import React from 'react';
 import { toast } from 'react-toastify';
 
-const AddPetPage = () => {
+const EditPetCard = ({ singlePet }) => {
 
-    const router = useRouter();
+    const { petName, _id, species, breed, age, location, gender, imageURL, updatedAt, statusownerEmail, description, adoptionFee, adoptionFeelocation, vaccinationStatus, healthStatus, status } = singlePet;
 
+    const router = useRouter()
     const { data: session, isPending, error, } = authClient.useSession()
     const userEmail = session?.user?.email
 
     const userId = session?.user?.id
-
-
     const date = new Date();
 
     const newDate = date.toLocaleDateString('en-GB', {
@@ -24,12 +26,11 @@ const AddPetPage = () => {
     });
 
 
-
-
     const onSubmit = async (e) => {
         e.preventDefault()
         const formData = new FormData(e.target)
         const petData = Object.fromEntries(formData.entries())
+
 
 
         const { data: jwtToken } = await authClient.token();
@@ -44,28 +45,31 @@ const AddPetPage = () => {
 
 
 
-        const createData = {
+        const updateData = {
             ...petData,
-            status: "avaibale",
-            createdAt: newDate,
-            userId: userId,
         }
 
+        console.log(updateData);
 
-        const res = await fetch('http://localhost:8000/allpets', {
-            method: "POST",
+
+        const res = await fetch(`http://localhost:8000/editpet/${_id}`, {
+            method: "PATCH",
             headers: {
                 'content-type': 'application/json',
                 authorization: `Bearer ${token}`
             },
-            body: JSON.stringify(createData)
+            body: JSON.stringify(updateData)
         })
         const data = await res.json()
 
-
-        if (data.acknowledged) {
-            toast.success("the pet is successfully add your listing")
+        if (!data.modifiedCount > 0) {
+            toast.error("Not Changed Yet")
+            return
+        }
+        if (data.modifiedCount > 0) {
+            toast.success(`${petName} succefully edited`)
             router.push('/dashboard/myLisiting')
+            router.refresh()
         }
 
         return data;
@@ -81,9 +85,9 @@ const AddPetPage = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     {/* Destination Name */}
                     <div className="md:col-span-2">
-                        <TextField name="petName" isRequired>
-                            <Label className='after:content-none'>Petname</Label>
-                            <Input placeholder="Max" className="rounded-2xl  border border-gray-300" />
+                        <TextField defaultValue={petName} name="petName">
+                            <Label className='after:content-none text-black'>Petname</Label>
+                            <Input className="rounded-2xl  border border-gray-300" />
                             <FieldError />
                         </TextField>
                     </div>
@@ -92,12 +96,12 @@ const AddPetPage = () => {
                     {/* Species */}
                     <div>
                         <Select
+                            defaultValue={species}
                             name="species"
                             isRequired
                             className="w-full"
-                            placeholder="Select species"
                         >
-                            <Label className='after:content-none'>Species</Label>
+                            <Label className='after:content-none text-black'>Species</Label>
                             <Select.Trigger className="rounded-2xl  border border-gray-300">
                                 <Select.Value />
                                 <Select.Indicator />
@@ -148,8 +152,9 @@ const AddPetPage = () => {
                             isRequired
                             className="w-full"
                             placeholder="Select gender"
+                            defaultValue={gender}
                         >
-                            <Label className='after:content-none'>Gender</Label>
+                            <Label className='after:content-none text-black'>Gender</Label>
                             <Select.Trigger className="rounded-2xl  border border-gray-300">
                                 <Select.Value />
                                 <Select.Indicator />
@@ -176,41 +181,7 @@ const AddPetPage = () => {
 
 
 
-                    {/* Vaccination Status */}
-                    <div>
-                        <Select
-                            name="vaccinationStatus"
-                            isRequired
-                            className="w-full"
-                            placeholder="Select status"
-                        >
-                            <Label className='after:content-none'>Vaccination Status</Label>
-                            <Select.Trigger className="rounded-2xl  border border-gray-300">
-                                <Select.Value />
-                                <Select.Indicator />
-                            </Select.Trigger>
-                            <Select.Popover>
-                                <ListBox>
-                                    <ListBox.Item id="Vaccinated" textValue="Vaccinated">
-                                        Vaccinated
-                                        <ListBox.ItemIndicator />
-                                    </ListBox.Item>
-                                    <ListBox.Item id="No Vaccinated" textValue="No Vaccinated">
-                                        No Vaccinated
-                                        <ListBox.ItemIndicator />
-                                    </ListBox.Item>
-                                    <ListBox.Item id="Partially Vaccinated" textValue="Partially Vaccinated">
-                                        Partially Vaccinated
-                                        <ListBox.ItemIndicator />
-                                    </ListBox.Item>
-                                    <ListBox.Item id="Unknown" textValue="Unknown">
-                                        Unknown
-                                        <ListBox.ItemIndicator />
-                                    </ListBox.Item>
-                                </ListBox>
-                            </Select.Popover>
-                        </Select>
-                    </div>
+
 
 
                     {/* Health Status */}
@@ -220,8 +191,9 @@ const AddPetPage = () => {
                             isRequired
                             className="w-full"
                             placeholder="Select health status"
+                            defaultValue={healthStatus}
                         >
-                            <Label className='after:content-none'>Health Status</Label>
+                            <Label className='after:content-none text-black'>Health Status</Label>
                             <Select.Trigger className="rounded-2xl  border border-gray-300">
                                 <Select.Value />
                                 <Select.Indicator />
@@ -255,23 +227,23 @@ const AddPetPage = () => {
                     </div>
 
                     {/* Breed */}
-                    <TextField name="breed" isRequired>
-                        <Label className='after:content-none'>Breed</Label>
+                    <TextField defaultValue={breed} name="breed" isRequired>
+                        <Label className='after:content-none text-black'>Breed</Label>
                         <Input placeholder="Parcian" className="rounded-2xl border border-gray-300" />
                         <FieldError />
                     </TextField>
 
 
                     {/* Age */}
-                    <TextField name="age" isRequired>
-                        <Label className='after:content-none'>Age (years)</Label>
+                    <TextField defaultValue={age} name="age" isRequired>
+                        <Label className='after:content-none text-black'>Age (years)</Label>
                         <Input type='number' placeholder="3" className="rounded-2xl border border-gray-300" />
                         <FieldError />
                     </TextField>
 
                     {/* Location */}
-                    <TextField name="location" isRequired>
-                        <Label className='after:content-none'>Location</Label>
+                    <TextField defaultValue={location} name="location" isRequired>
+                        <Label className='after:content-none text-black'>Location</Label>
                         <Input placeholder="Dhaka, Mirpur" className="rounded-2xl border border-gray-300" />
                         <FieldError />
                     </TextField>
@@ -280,8 +252,8 @@ const AddPetPage = () => {
 
 
                     {/* Fee */}
-                    <TextField name="adoptionFee" type="number" isRequired>
-                        <Label className='after:content-none'>Adoption Fee)</Label>
+                    <TextField defaultValue={adoptionFee} name="adoptionFee" type="number" isRequired>
+                        <Label className='after:content-none text-black'>Adoption Fee)</Label>
                         <Input
                             type="number"
                             placeholder="1299"
@@ -293,29 +265,13 @@ const AddPetPage = () => {
 
 
 
-                    {/* Owner Email */}
-                    <div className="md:col-span-2">
-                        <TextField name="ownerEmail" isRequired>
-                            <Label className='after:content-none'>Owner Email</Label>
-                            <Input
-                                type="email"
-                                readOnly={true}
-                                value={userEmail || ""}
-                                className="rounded-2xl border border-gray-300 cursor-not-allowed"
-                            />
-                            <FieldError />
-                        </TextField>
-                    </div>
-
-
-
                     {/* Image URL - Removed preview */}
                     <div className="md:col-span-2">
-                        <TextField name="imageURL" isRequired>
+                        <TextField defaultValue={imageURL} name="imageURL text-black" isRequired>
                             <Label className='after:content-none'>Pet Image URL</Label>
                             <Input
                                 type="url"
-                                placeholder="https://example.com/bali-paradise.jpg"
+                                placeholder="https://cdn.pixabay.com/photo/2023/10/18/10/32/parrot-8323694_1280.jpg"
                                 className="rounded-2xl border border-gray-300"
                             />
                             <FieldError />
@@ -324,7 +280,7 @@ const AddPetPage = () => {
 
                     {/* Description */}
                     <div className="md:col-span-2">
-                        <TextField name="description" isRequired>
+                        <TextField defaultValue={description} name="description text-black" isRequired>
                             <Label className='after:content-none'>Description</Label>
                             <TextArea
                                 placeholder="Please describe your pet’s name, age, breed, gender, personality, health condition, vaccination status, food habits, behavior with people or pets, adoption reason, preferred owner type, location, and contact details."
@@ -350,4 +306,4 @@ const AddPetPage = () => {
     );
 };
 
-export default AddPetPage;
+export default EditPetCard;

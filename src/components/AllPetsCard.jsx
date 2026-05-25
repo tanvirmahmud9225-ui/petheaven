@@ -11,7 +11,7 @@ const AllPetsCard = ({ pet }) => {
 
     return (
         <div
-            className="group flex flex-col bg-white rounded-xl border border-slate-200 overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+            className="group flex flex-col mb-10 bg-white rounded-xl border border-slate-200 overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
         >
             <div className="relative overflow-hidden aspect-16/18">
                 <Image

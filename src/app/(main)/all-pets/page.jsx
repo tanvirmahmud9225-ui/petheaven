@@ -1,11 +1,16 @@
 import AllPetsCard from '@/components/AllPetsCard';
 import { getAllPets } from '@/lib/data';
-import { RiMenuSearchFill } from 'react-icons/ri';
+
 import SearchFilter from '@/components/SearchFilter';
 
-const AllPetsPage = async () => {
+const AllPetsPage = async ({ searchParams }) => {
 
-    const pets = await getAllPets();
+    const sParams = await searchParams
+
+    // const searchPets = getAllPetSearch(sParams.searchTearm || "")
+
+
+    const pets = await getAllPets(sParams.searchTearm || "");
 
 
 
@@ -17,7 +22,7 @@ const AllPetsPage = async () => {
                 <SearchFilter />
             </div>
 
-            <div className='grid grid-cols-3 w-7xl mx-auto gap-5'>
+            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-7xl mx-auto gap-5'>
                 {
                     pets.map(pet => <AllPetsCard key={pet._id} pet={pet} />)
                 }

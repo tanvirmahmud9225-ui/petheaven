@@ -1,5 +1,6 @@
 "use client";
 import DasNavBar from '@/components/DasNavBar';
+import { signOut } from '@/lib/auth-client';
 import { Button, ListBox, ListBoxItem, Tab, Tabs } from '@heroui/react';
 import { PawPrint } from 'lucide-react';
 import Link from 'next/link';
@@ -55,17 +56,6 @@ const layout = ({ children }) => {
                         </div>
                     </ListBoxItem>
 
-                    <ListBoxItem
-                        key="/dashboard/allpetsdash"
-                        textValue="All pets"
-                        as={Link}
-                        href="/dashboard/allpetsdash"
-                        onClick={() => setIsOpen(false)}
-                    >
-                        <div className="w-full h-full flex items-center gap-2">
-                            <PawPrint /> All Pets
-                        </div>
-                    </ListBoxItem>
 
 
                     <ListBoxItem
@@ -85,7 +75,7 @@ const layout = ({ children }) => {
             </div>
 
             <div className="mt-auto pt-6 border-t border-gray-300">
-                <Button variant='ghost' className="w-full flex items-center gap-2 px-4 py-3 text-xl font-semibold text-rose-500 hover:bg-rose-50 rounded-xl transition-all">
+                <Button onClick={() => signOut()} variant='ghost' className="w-full flex items-center gap-2 px-4 py-3 text-xl font-semibold text-rose-500 hover:bg-rose-50 rounded-xl transition-all">
                     🚪 Logout
                 </Button>
             </div>
@@ -159,7 +149,7 @@ const layout = ({ children }) => {
                         </div>
 
                         {/* ডানপাশের মেইন কন্টেন্ট এলাকা (মোবাইলে পুরো ১ কলাম এবং ডেস্কটপে ৫ কলাম নিবে) */}
-                        <div className="col-span-1 md:col-span-9 p-4 sm:p-8 md:p-10 max-w-6xl w-full ">
+                        <div className="col-span-1 md:col-span-9 p-4 sm:p-8 md:p-10 w-11/12 mx-auto">
                             {children}
                         </div>
 

@@ -85,9 +85,6 @@ const DasNavBar = () => {
                                         <Link href="/dashboard" className="px-4 py-2 text-sm hover:bg-muted flex items-center gap-3 transition-colors">
                                             <LayoutDashboard className="w-4 h-4" /> Dashboard
                                         </Link>
-                                        <Link href="/settings" className="px-4 py-2 text-sm hover:bg-muted flex items-center gap-3 transition-colors">
-                                            <User className="w-4 h-4" /> Settings
-                                        </Link>
                                         <button
                                             onClick={() => handleSignOut()}
                                             className="px-4 py-2 text-sm text-red-500 hover:bg-red-50 flex items-center gap-3 transition-colors text-left">

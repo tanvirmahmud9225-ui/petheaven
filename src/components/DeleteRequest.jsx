@@ -2,10 +2,11 @@
 import { authClient } from "@/lib/auth-client";
 
 import { Button, Modal } from "@heroui/react";
+import { useRouter } from "next/navigation";
 
 const DeleteRequest = ({ id }) => {
 
-
+    const router = useRouter()
 
     const handleDeleteRequest = async () => {
         // const session = await auth.api.getSession({
