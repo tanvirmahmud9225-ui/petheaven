@@ -23,9 +23,10 @@ const PetDetailsPage = async ({ params }) => {
         headers: await headers()
     })
 
-
     const singlePet = await getPetById(petId, token);
     const { petName, _id, species, breed, age, location, gender, imageURL, updatedAt, statusownerEmail, description, adoptionFee, adoptionFeelocation, vaccinationStatus, healthStatus, status } = singlePet;
+
+    console.log(status);
 
 
     const featuredItems = [
@@ -92,6 +93,7 @@ const PetDetailsPage = async ({ params }) => {
                             </div>
                         ))}
                     </div>
+
 
                 </div>
 

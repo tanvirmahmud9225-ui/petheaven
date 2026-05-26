@@ -1,17 +1,16 @@
 'use client'
 import { authClient } from '@/lib/auth-client';
 import { Button } from '@heroui/react';
-import { body } from 'motion/react-client';
 import { useRouter } from 'next/navigation';
 import React from 'react';
 import { BsCheckCircleFill } from 'react-icons/bs';
+import { TiDelete } from 'react-icons/ti';
 
-const RequestApprove = ({ id, status }) => {
-
+const RequestReject = ({ id, status }) => {
 
     const router = useRouter()
-    const handleApprove = async () => {
 
+    const handleReject = async () => {
 
         const { data: jwtToken } = await authClient.token();
         const token = jwtToken?.token
@@ -21,7 +20,7 @@ const RequestApprove = ({ id, status }) => {
             status,
         }
 
-        const res = await fetch(`http://localhost:8000/allpets/${id}`, {
+        const res = await fetch(`http://localhost:8000/allpets2/${id}`, {
             method: "PATCH",
             headers: {
                 'content-type': 'application/json',
@@ -31,9 +30,14 @@ const RequestApprove = ({ id, status }) => {
 
         })
         const data = await res.json()
+
+
+        console.log(data);
+
         if (data.modifiedCount > 0) {
             router.refresh()
         }
+
         return data
 
 
@@ -43,11 +47,11 @@ const RequestApprove = ({ id, status }) => {
 
     return (
         <div>
-            <Button onClick={handleApprove} className="w-full" slot="close" variant="secondary">
-                <BsCheckCircleFill /> Approve
+            <Button onClick={handleReject} className="w-full" slot="close" variant="secondary">
+                <TiDelete className='size-5.5' /> Reject
             </Button>
         </div>
     );
 };
 
-export default RequestApprove;
+export default RequestReject;

@@ -24,7 +24,7 @@ const AllPetsCardMyLisiting = ({ pet }) => {
         <div
             className="group flex flex-col bg-white rounded-xl border border-slate-200 overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
         >
-            <div className="relative overflow-hidden aspect-20/8">
+            <div className="relative overflow-hidden aspect-20/15">
                 <Image
                     alt="Course Image"
                     className="object-cover group-hover:scale-110 transition-transform duration-700"

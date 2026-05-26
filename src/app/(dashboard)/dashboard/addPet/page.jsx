@@ -1,6 +1,7 @@
 'use client'
 import { authClient } from '@/lib/auth-client';
 import { FieldError, Input, Label, TextField, Select, ListBox, TextArea, Button, Form } from '@heroui/react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React from 'react';
 import { toast } from 'react-toastify';
@@ -336,15 +337,17 @@ const AddPetPage = () => {
                 </div>
 
                 {/* Buttons */}
-
-                <Button
-                    type="submit"
-                    variant="outline"
-                    isLoading={''}
-                    className=" rounded-none w-full bg-cyan-500 text-white border border-gray-300"
-                >
-                    Add Pet Listing
-                </Button>
+                <div className='flex gap-5'>
+                    <Link href={'/dashboard/myLisiting'} className='flex justify-center w-full'><Button className={'rounded-3xl w-full'} variant='outline'>Cancle</Button></Link>
+                    <Button
+                        type="submit"
+                        variant="outline"
+                        isLoading={''}
+                        className=" rounded-3xl w-full bg-cyan-500 text-white border border-gray-300 "
+                    >
+                        Save Changes
+                    </Button>
+                </div>
             </Form>
         </div>
     );

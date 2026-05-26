@@ -15,14 +15,17 @@ const AllPetsPage = async ({ searchParams }) => {
 
 
     return (
-        <div >
-            <h1 className='text-7xl font-bold text-center my-20'>This is All pets page </h1>
+        <div className=' lg:w-7xl w-[90%] mx-auto'>
+            <div className='my-10 space-y-5'>
+                <h1 className='text-7xl font-bold  '>Browse All Pets </h1>
+                <p className='text-lg'>{pets.length} pets available for adoption</p>
+            </div>
 
-            <div className='w-7xl mx-auto bg-slate-100 rounded-2xl p-5 mb-10'>
+            <div className=' bg-slate-100 rounded-2xl p-5 mb-10'>
                 <SearchFilter />
             </div>
 
-            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-7xl mx-auto gap-5'>
+            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5'>
                 {
                     pets.map(pet => <AllPetsCard key={pet._id} pet={pet} />)
                 }

@@ -68,8 +68,10 @@ const AllPetsCard = ({ pet }) => {
                             View Details
                         </Button>
                     </Link>
-                    <Link href={''} className="w-full">
+                    <Link href={status == "adopted" ? "#" : `/all-pets/${_id}`} className="w-full">
                         <Button
+                            isDisabled={status == "adopted"}
+
                             // variant="flat"
 
                             className="font-bold w-full bg-[#68c69b] rounded-2xl px-6"

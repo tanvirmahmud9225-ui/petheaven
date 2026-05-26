@@ -41,7 +41,7 @@ const SearchFilter = () => {
         <div>
             <div>
                 <h1 className='flex items-center gap-4 text-xl font-bold mb-5'><RiMenuSearchFill /> <span>Filter & Search</span></h1>
-                <div className="grid grid-cols-3 gap-15 items-center">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 lsg:gap-15 items-center">
                     <div>
                         <Label className="text-[1rem]">Search By name</Label>
                         <div className="relative flex items-center bg-white border border-slate-200 rounded-2xl shadow-sm focus-within:ring-4 focus-within:ring-blue-600/10 focus-within:border-blue-600 transition-all overflow-hidden">
@@ -67,7 +67,11 @@ const SearchFilter = () => {
                             </button>
                         </div>
                     </div>
+
                     <SpeciesFilter />
+
+
+
                     <div className="w-full">
                         <div>
                             <Select

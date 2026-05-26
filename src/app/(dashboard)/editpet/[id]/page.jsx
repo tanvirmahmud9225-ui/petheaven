@@ -17,10 +17,13 @@ const PetEditPage = async ({ params }) => {
 
 
 
+
+
+
     return (
         <div className='w-6xl mx-auto'>
             <div className='mb-10'>
-                <h1 className='text-4xl font-bold'>Update hen's listing</h1>
+                <h1 className='text-4xl font-bold'>Update {singlePet.petName} listing</h1>
             </div>
 
             <EditPetCard singlePet={singlePet} />

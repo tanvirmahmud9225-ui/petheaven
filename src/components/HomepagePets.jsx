@@ -12,13 +12,13 @@ const HomepagePets = async () => {
     return (
         <div className='bg-[#fbf9f5] py-30'>
 
-            <div className=' w-7xl mx-auto'>
+            <div className=' lg:w-7xl w-[95%]  mx-auto'>
                 <div className='my-10 text-center space-y-4'>
                     <h1 className='text-7xl font-bold '>Meet Our Friends </h1>
                     <p className='text-gray-500 text-xl'>These adorable pets are waiting for their forever homes. Each One has a unique <br /> personality and endless love to give.</p>
                 </div>
 
-                <div className='grid grid-cols-3 gap-5'>
+                <div className='grid col-end-1 lg:grid-cols-3 gap-5'>
                     {
                         pets.map(pet => <AllPetsCard key={pet._id} pet={pet} />)
                     }

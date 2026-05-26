@@ -18,7 +18,7 @@ import Link from "next/link";
 const Hero = () => {
 
     return (
-        <section className="relative overflow-hidden pb-24 md:pb-32  from-blue-50 via-slate-50 to-slate-50 ">
+        <section className="relative overflow-hidden  from-blue-50 via-slate-50 to-slate-50 ">
 
             <Swiper
                 navigation

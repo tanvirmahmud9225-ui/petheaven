@@ -82,7 +82,7 @@ const DasNavBar = () => {
                                             <p className="font-bold text-sm">Welcome back!</p>
                                             <p className="text-xs truncate text-slate-500">sakib@gmail.com</p>
                                         </div>
-                                        <Link href="/dashboard" className="px-4 py-2 text-sm hover:bg-muted flex items-center gap-3 transition-colors">
+                                        <Link href="/dashboard/myRequests" className="px-4 py-2 text-sm hover:bg-muted flex items-center gap-3 transition-colors">
                                             <LayoutDashboard className="w-4 h-4" /> Dashboard
                                         </Link>
                                         <button
@@ -121,7 +121,7 @@ const DasNavBar = () => {
                 <div className="md:hidden px-4 pt-2 pb-6 space-y-2 bg-white border-b border-slate-200 animate-in slide-in-from-top duration-300">
                     <Link href="/" className="block px-4 py-3 text-base font-medium text-slate-900 hover:bg-slate-50 rounded-xl">Home</Link>
                     <Link href="/all-pets" className="block px-4 py-3 text-base font-medium text-slate-900 hover:bg-slate-50 rounded-xl">Courses</Link>
-                    <Link href="/dashboard" className="block px-4 py-3 text-base font-medium text-slate-900 hover:bg-slate-50 rounded-xl">Dashboard</Link>
+                    <Link href="/dashboard/myRequests" className="block px-4 py-3 text-base font-medium text-slate-900 hover:bg-slate-50 rounded-xl">Dashboard</Link>
                     <div className="pt-4 border-t border-border mt-4">
 
                         <div className="grid grid-cols-2 gap-4">

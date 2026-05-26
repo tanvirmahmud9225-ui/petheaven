@@ -1,11 +1,14 @@
 "use client";
 import DasNavBar from '@/components/DasNavBar';
-import { signOut } from '@/lib/auth-client';
+import { authClient, signOut } from '@/lib/auth-client';
 import { Button, ListBox, ListBoxItem, Tab, Tabs } from '@heroui/react';
-import { PawPrint } from 'lucide-react';
+import { Heart, PawPrint } from 'lucide-react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import React, { useState } from 'react';
+import { CiMenuBurger } from 'react-icons/ci';
+import { FaPlus } from 'react-icons/fa';
+import { MdOutlinePets, MdOutlineStickyNote2 } from 'react-icons/md';
 
 
 
@@ -13,12 +16,24 @@ import React, { useState } from 'react';
 const layout = ({ children }) => {
     const pathname = usePathname();
     const [isOpen, setIsOpen] = useState(false); // মোবাইল মেনু ওপেন/ক্লোজ স্টেট
+    const router = useRouter()
+
+
+    const handleSignOut = async () => {
+        await authClient.signOut({
+            fetchOptions: {
+                onSuccess: () => {
+                    router.replace("/"); // redirect to login page
+                },
+            },
+        });
+    }
 
 
     const MenuContent = () => (
         <div className="w-full flex flex-col justify-between h-full">
             <div className="w-full p-6">
-                <p className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-4 px-2">
+                <p className="text-xl font-bold uppercase tracking-wider text-slate-400 mb-4 px-2">
                     Menu
                 </p>
 
@@ -33,6 +48,19 @@ const layout = ({ children }) => {
                     }}
                 >
                     <ListBoxItem
+                        key="/"
+                        textValue="My Requests"
+                        as={Link}
+                        href="/"
+                        onClick={() => setIsOpen(false)}
+                    >
+                        <div className="w-full h-full flex items-center gap-2">
+                            <MdOutlineStickyNote2 /> Home
+                        </div>
+                    </ListBoxItem>
+
+
+                    <ListBoxItem
                         key="/dashboard/myRequests"
                         textValue="My Requests"
                         as={Link}
@@ -40,7 +68,7 @@ const layout = ({ children }) => {
                         onClick={() => setIsOpen(false)}
                     >
                         <div className="w-full h-full flex items-center gap-2">
-                            📄 My Requests
+                            <MdOutlineStickyNote2 /> My Requests
                         </div>
                     </ListBoxItem>
 
@@ -52,7 +80,7 @@ const layout = ({ children }) => {
                         onClick={() => setIsOpen(false)}
                     >
                         <div className="w-full h-full flex items-center gap-2">
-                            ➕ Add Pet
+                            <FaPlus /> Add Pet
                         </div>
                     </ListBoxItem>
 
@@ -66,7 +94,7 @@ const layout = ({ children }) => {
                         onClick={() => setIsOpen(false)}
                     >
                         <div className="w-full h-full flex items-center gap-2">
-                            ❤️ My Listings
+                            <Heart /> My Listings
                         </div>
                     </ListBoxItem>
 
@@ -75,7 +103,9 @@ const layout = ({ children }) => {
             </div>
 
             <div className="mt-auto pt-6 border-t border-gray-300">
-                <Button onClick={() => signOut()} variant='ghost' className="w-full flex items-center gap-2 px-4 py-3 text-xl font-semibold text-rose-500 hover:bg-rose-50 rounded-xl transition-all">
+                <Button
+                    onClick={() => handleSignOut()}
+                    variant='ghost' className="w-full flex items-center gap-2 px-4 py-3 text-xl font-semibold text-rose-500 hover:bg-rose-50 rounded-xl transition-all">
                     🚪 Logout
                 </Button>
             </div>
@@ -114,9 +144,21 @@ const layout = ({ children }) => {
                             onClick={() => setIsOpen(true)}
                             className="p-2 text-slate-600 hover:bg-slate-100 rounded-xl transition-all"
                         >
-                            🍔
+                            <CiMenuBurger className='size-8' />
                         </button>
-                        <div className="text-sm font-bold text-slate-700">PetNest Dashboard</div>
+                        <div className="text-sm font-bold text-slate-700">
+                            <Link href="/" className="flex items-center gap-2 group">
+                                <div className="p-2 bg-[#68c69b] rounded-xl group-hover:rotate-12 transition-transform">
+                                    <MdOutlinePets className="w-6 h-6 text-white" />
+                                </div>
+                                <span className="font-extrabold text-2xl tracking-tight text-[#68c69b]">
+                                    PetHeaven
+                                </span>
+                            </Link>
+                            <div>
+                                <h1 className='text-2xl text-center font-bold'>Dashboard</h1>
+                            </div>
+                        </div>
                         <div className="w-8"></div> {/* এলাইনমেন্ট ব্যালেন্স করার জন্য ফাঁকা স্পেস */}
                     </div>
 
@@ -132,9 +174,9 @@ const layout = ({ children }) => {
 
                         {/* ড্রয়ার কন্টেন্ট */}
                         <div className={`absolute top-0 left-0 bottom-0 w-72 bg-white p-6 shadow-2xl transition-transform duration-300 flex flex-col justify-between ${isOpen ? "translate-x-0" : "-translate-x-full"}`}>
-                            <div className="flex items-center justify-between mb-6">
-                                <span className="text-lg font-bold text-slate-800">Navigation</span>
-                                <button onClick={() => setIsOpen(false)} className="p-2 text-slate-400 hover:bg-slate-50 rounded-lg">✕</button>
+                            <div className="flex items-end justify-end mb-6">
+
+                                <button onClick={() => setIsOpen(false)} className="p-2 text-slate-400 hover:bg-slate-50 rounded-lg text-3xl">✕</button>
                             </div>
                             <MenuContent />
                         </div>

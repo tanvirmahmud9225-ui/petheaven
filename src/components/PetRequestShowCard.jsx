@@ -7,6 +7,7 @@ import { TiDelete } from "react-icons/ti";
 import RequestApprove from "./RequestApprove";
 import { headers } from "next/headers";
 import { auth } from "@/lib/auth";
+import RequestReject from "./RequestReject";
 
 
 
@@ -71,12 +72,14 @@ const PetRequestShowCard = async ({ id }) => {
                                 }
 
                             </Modal.Body>
-                            <Modal.Footer className="">
-                                <RequestApprove status={status} id={id} className="w-full" />
-                                <Button className="w-full" slot="close">
-                                    <TiDelete /> Reject
-                                </Button>
-                            </Modal.Footer>
+                            {
+                                status == "avaibale" && <Modal.Footer className="">
+                                    <RequestApprove status={status} id={id} className="w-full" />
+                                    <RequestReject status={status} id={id} className="w-full" />
+                                </Modal.Footer>
+
+
+                            }
                             <Modal.CloseTrigger />
                         </Modal.Dialog>
                             :
@@ -89,9 +92,10 @@ const PetRequestShowCard = async ({ id }) => {
                                 </Modal.Body>
                                 <Modal.Footer className="">
                                     <RequestApprove />
-                                    <Button className="w-full" slot="close">
+                                    <RequestReject />
+                                    {/* <Button className="w-full" slot="close">
                                         <TiDelete /> Reject
-                                    </Button>
+                                    </Button> */}
                                 </Modal.Footer>
                                 <Modal.CloseTrigger />
                             </Modal.Dialog>

@@ -2,10 +2,12 @@
 import { authClient } from "@/lib/auth-client";
 // import { Eye, EyeSlash } from "@gravity-ui/icons";
 import { Button, FieldError, Form, Input, InputGroup, Label, TextField } from "@heroui/react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { BiUser } from "react-icons/bi";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
+import { FaGoogle } from "react-icons/fa";
 import { HiOutlinePhoto } from "react-icons/hi2";
 import { MdCheck } from "react-icons/md";
 import { TfiEmail, TfiLock } from "react-icons/tfi";
@@ -34,12 +36,25 @@ const RegisterPage = () => {
         }
     }
 
+    const handleGoogleSignIn = async () => {
+        await authClient.signIn.social({
+            provider: "google",
+        })
+    }
 
 
 
     return (
-        <div className="max-w-7xl w-[95vw] md:h-[60vh] lg:h-[70vh] flex flex-col justify-center bg-gray-200 mt-20 mb-30 mx-auto rounded-2xl overflow-hidden">
-            <h1 className='text-4xl font-bold text-center my-5'>Please Sign Up</h1>
+        <div className="max-w-7xl md:w-[95%] lg:w-full  h-screen flex flex-col justify-center bg-gray-200 mt-20 mb-30 mx-auto rounded-2xl overflow-hidden">
+            <div>
+                <h1 className='text-4xl font-bold text-center my-5'>Create your account</h1>
+                <p className="text-center">Start your adoption journey today</p>
+                <div className="flex flex-col items-center mt-2 gap-2">
+                    <Button onClick={handleGoogleSignIn} variant="danger-soft" className="py-5.5 max-w-100 px-10  hover:bg-gray-300 flex gap-3 items-center ml-2 bold  text-lg text-black">
+                        <FaGoogle /> <span>Continue With Google</span></Button>
+                </div>
+                <p className="text-center mt-8">or register with email </p>
+            </div>
             <div className="py-5 flex justify-center">
                 <Form className="flex md:w-150 sm:w-120 w-90  flex-col gap-4" onSubmit={onSubmit}>
                     {/* name */}
