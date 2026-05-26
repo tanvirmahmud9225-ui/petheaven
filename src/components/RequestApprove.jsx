@@ -15,6 +15,8 @@ const RequestApprove = ({ id, status }) => {
 
         const { data: jwtToken } = await authClient.token();
         const token = jwtToken?.token
+        console.log(token);
+
 
 
         const updateData = {

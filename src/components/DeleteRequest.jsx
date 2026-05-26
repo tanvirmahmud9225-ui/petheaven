@@ -16,7 +16,7 @@ const DeleteRequest = ({ id, petName }) => {
 
 
         const { token } = await authClient.token()
-        console.log(token);
+
 
         const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/petrequest/${id}`, {
             method: "DELETE",
