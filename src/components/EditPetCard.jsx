@@ -52,7 +52,7 @@ const EditPetCard = ({ singlePet }) => {
 
 
 
-        const res = await fetch(`http://localhost:8000/editpet/${_id}`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/editpet/${_id}`, {
             method: "PATCH",
             headers: {
                 'content-type': 'application/json',

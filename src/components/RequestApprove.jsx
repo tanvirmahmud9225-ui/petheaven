@@ -21,7 +21,7 @@ const RequestApprove = ({ id, status }) => {
             status,
         }
 
-        const res = await fetch(`http://localhost:8000/allpets/${id}`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/allpets/${id}`, {
             method: "PATCH",
             headers: {
                 'content-type': 'application/json',

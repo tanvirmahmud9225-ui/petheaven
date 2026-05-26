@@ -55,7 +55,7 @@ const AdoptionCard = ({ singlePet }) => {
 
 
         try {
-            const res = await fetch(`http://localhost:8000/petrequest/${_id}`, {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/petrequest/${_id}`, {
                 method: "POST",
                 headers: {
                     "content-type": "application/json",

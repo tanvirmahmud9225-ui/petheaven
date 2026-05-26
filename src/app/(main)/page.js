@@ -1,4 +1,5 @@
-import HeroSlider from "@/components/Hero";
+
+import Hero from "@/components/Hero";
 import HomepagePets from "@/components/HomepagePets";
 import OurMission from "@/components/OurMission";
 import PetCareTips from "@/components/PetCareTips";
@@ -9,7 +10,7 @@ import Image from "next/image";
 export default function Home() {
   return (
     <div>
-      <HeroSlider />
+      <Hero />
       <HomepagePets />
       <WhyAdopt />
       <Review />

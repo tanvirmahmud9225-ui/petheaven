@@ -16,7 +16,7 @@ const DeleteCard = ({ _id }) => {
 
 
 
-        const res = await fetch(`http://localhost:8000/allpets/${_id}`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/allpets/${_id}`, {
             method: "DELETE",
             headers: {
                 authorization: `Bearer ${token}`

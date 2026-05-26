@@ -53,7 +53,7 @@ const AddPetPage = () => {
         }
 
 
-        const res = await fetch('http://localhost:8000/allpets', {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/allpets`, {
             method: "POST",
             headers: {
                 'content-type': 'application/json',

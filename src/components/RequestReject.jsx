@@ -20,7 +20,7 @@ const RequestReject = ({ id, status }) => {
             status,
         }
 
-        const res = await fetch(`http://localhost:8000/allpets2/${id}`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/allpets2/${id}`, {
             method: "PATCH",
             headers: {
                 'content-type': 'application/json',
