@@ -5,6 +5,7 @@ import { body } from 'motion/react-client';
 import { useRouter } from 'next/navigation';
 import React from 'react';
 import { BsCheckCircleFill } from 'react-icons/bs';
+import { toast } from 'react-toastify';
 
 const RequestApprove = ({ id, status, token }) => {
 
@@ -30,6 +31,7 @@ const RequestApprove = ({ id, status, token }) => {
         })
         const data = await res.json()
         if (data.modifiedCount > 0) {
+            toast.success("Request Approved")
             router.refresh()
         }
         return data
