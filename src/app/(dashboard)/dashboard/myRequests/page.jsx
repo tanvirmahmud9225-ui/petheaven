@@ -24,7 +24,7 @@ const MyRequestPage = async () => {
 
 
     const pending = adoptionRequest.filter(request => request.status == "pending")
-    const approve = adoptionRequest.filter(request => request.status == "approved")
+    const approve = adoptionRequest.filter(request => request.status == "adopted")
     const reject = adoptionRequest.filter(request => request.status == "rejected")
 
 
