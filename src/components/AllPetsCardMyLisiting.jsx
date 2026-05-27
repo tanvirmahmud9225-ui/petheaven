@@ -14,9 +14,9 @@ import { getPetRequest, getPetsMyListingByPetId } from "@/lib/data";
 const AllPetsCardMyLisiting = async ({ pet }) => {
     const { petName, _id, species, breed, age, location, gender, imageURL, status } = pet;
 
-    const requestPet = await getPetsMyListingByPetId(_id);
+    const requestPet = await getPetsMyListingByPetId(pet?._id);
 
-    const statu = requestPet.status
+    const statu = requestPet?.status
 
 
 
@@ -31,7 +31,7 @@ const AllPetsCardMyLisiting = async ({ pet }) => {
                 <Image
                     alt="Course Image"
                     className="object-cover group-hover:scale-110 transition-transform duration-700"
-                    src={imageURL || "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=600"}
+                    src={pet?.imageURL || "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=600"}
 
                     fill
                 />
@@ -41,7 +41,7 @@ const AllPetsCardMyLisiting = async ({ pet }) => {
                         variant="solid"
                         className="font-bold shadow-lg shadow-blue-600/20"
                     >
-                        {status}
+                        {pet?.status}
                     </Chip>
                 </div>
                 <div className="absolute top-4 left-4">
@@ -50,7 +50,7 @@ const AllPetsCardMyLisiting = async ({ pet }) => {
                         variant="solid"
                         className="font-bold shadow-lg shadow-blue-600/20"
                     >
-                        {species}
+                        {pet?.species}
                     </Chip>
                 </div>
             </div>
@@ -58,22 +58,22 @@ const AllPetsCardMyLisiting = async ({ pet }) => {
                 <div className="space-y-2">
                     <Link href={``}>
                         <h3 className="text-xl font-bold leading-tight line-clamp-2 hover:text-blue-600 transition-colors">
-                            {petName}
+                            {pet?.petName}
                         </h3>
                     </Link>
                 </div>
                 <div className="flex items-center gap-1">
-                    <p>{breed}</p>
+                    <p>{pet?.breed}</p>
                     <GoDotFill className="mt-1" />
-                    <p>{age} years old</p>
+                    <p>{pet?.age} years old</p>
                     <GoDotFill className="mt-1" />
-                    <p>{gender}</p>
+                    <p>{pet?.gender}</p>
                 </div>
 
                 <div className="flex justify-between items-center">
                     <div className="flex items-center gap-2 text-md text-slate-500 font-bold">
                         <IoLocationSharp />
-                        <p>{location}</p>
+                        <p>{pet?.location}</p>
                     </div>
                     <div>
                         {
@@ -85,12 +85,12 @@ const AllPetsCardMyLisiting = async ({ pet }) => {
                 <div className="pt-2 mt-auto border-t border-slate-100 space-y-3">
                     {/* <span className="text-2xl font-black text-[#68c69b]">${adoptionFee}</span> */}
                     <div className="flex gap-4 items-center">
-                        <Link href={`/all-pets/${_id}`} className="w-full h-full flex items-center justify-center  group">
+                        <Link href={`/all-pets/${pet?._id}`} className="w-full h-full flex items-center justify-center  group">
                             <Button className={'w-full border-gray-300'} variant="outline">
                                 View Details
                             </Button>
                         </Link>
-                        <Link href={`/editpet/${_id}`} className="w-full h-full items-center justify-center group">
+                        <Link href={`/editpet/${pet?._id}`} className="w-full h-full items-center justify-center group">
                             <Button
 
                                 className="font-bold w-full border-gray-300 rounded-2xl px-6"
@@ -100,8 +100,8 @@ const AllPetsCardMyLisiting = async ({ pet }) => {
                     </div>
                     <div className="flex gap-4 items-center">
 
-                        <PetRequestShowCard id={_id} status={status} />
-                        <DeleteCard _id={_id} petName={petName} />
+                        <PetRequestShowCard id={pet?._id} status={pet?.status} />
+                        <DeleteCard _id={pet?._id} petName={pet?.petName} />
                     </div>
                 </div>
             </div>
