@@ -4,6 +4,7 @@ import { authClient } from "@/lib/auth-client";
 import { Button, Modal } from "@heroui/react";
 import { useRouter } from "next/navigation";
 import { IoAlertCircleOutline } from "react-icons/io5";
+import { toast } from "react-toastify";
 
 const DeleteRequest = ({ id, petName, token }) => {
 
@@ -28,6 +29,7 @@ const DeleteRequest = ({ id, petName, token }) => {
         const data = await res.json();
 
         if (data.deletedCount > 0) {
+            toast.success("Request cancle successfully")
             router.refresh('/dashboard/myRequests')
         }
         return data
