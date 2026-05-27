@@ -5,7 +5,7 @@ import { Button, Modal } from "@heroui/react";
 import { useRouter } from "next/navigation";
 import { IoAlertCircleOutline } from "react-icons/io5";
 
-const DeleteRequest = ({ id, petName }) => {
+const DeleteRequest = ({ id, petName, token }) => {
 
     const router = useRouter()
 
@@ -15,7 +15,7 @@ const DeleteRequest = ({ id, petName }) => {
         // })
 
 
-        const { token } = await authClient.token()
+        // const { token } = await authClient.token()
 
 
         const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/petrequest/${id}`, {
@@ -28,7 +28,7 @@ const DeleteRequest = ({ id, petName }) => {
         const data = await res.json();
 
         if (data.deletedCount > 0) {
-            router.refresh()
+            router.refresh('/dashboard/myRequests')
         }
         return data
     }

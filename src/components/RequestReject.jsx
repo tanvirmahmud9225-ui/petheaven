@@ -6,14 +6,16 @@ import React from 'react';
 import { BsCheckCircleFill } from 'react-icons/bs';
 import { TiDelete } from 'react-icons/ti';
 
-const RequestReject = ({ id, status }) => {
+const RequestReject = ({ id, status, token }) => {
+
+
+
 
     const router = useRouter()
 
     const handleReject = async () => {
 
-        const { data: jwtToken } = await authClient.token();
-        const token = jwtToken?.token
+
 
 
         const updateData = {
@@ -24,15 +26,12 @@ const RequestReject = ({ id, status }) => {
             method: "PATCH",
             headers: {
                 'content-type': 'application/json',
-                token: `Beared ${token}`
+                authorization: `Bearer ${token}`
             },
             body: JSON.stringify(updateData)
 
         })
         const data = await res.json()
-
-
-        console.log(data);
 
         if (data.modifiedCount > 0) {
             router.refresh()

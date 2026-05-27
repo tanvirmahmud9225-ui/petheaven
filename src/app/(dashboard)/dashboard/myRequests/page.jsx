@@ -29,16 +29,15 @@ const MyRequestPage = async () => {
 
 
 
-    console.log(adoptionRequest);
 
 
 
 
     return (
         <div>
-            <div className='mb-10 space-y-5'>
-                <h1 className='text-6xl font-bold '>My Adoption Requests</h1>
-                <p>Track the status of all your adoption requests here.</p>
+            <div className='mb-10 space-y-2 md:space-y-5'>
+                <h1 className='md:text-6xl text-center md:text-left text-3xl font-bold '>My Adoption Requests</h1>
+                <p className='text-center md:text-left'>Track the status of all your adoption <br className='md:hidden' /> requests here.</p>
             </div>
 
             {
@@ -53,29 +52,29 @@ const MyRequestPage = async () => {
                     <div>
 
                         <div className='mb-10 grid md:grid-cols-2 lg:grid-cols-4 gap-5'>
-                            <div className='px-15 py-6 flex justify-center items-center border border-gray-300 shadow-sm rounded-2xl'>
-                                <div className='text-center space-y-3'>
+                            <div className='px-15 py-2 md:py-6 flex justify-center items-center border border-gray-300 shadow-sm rounded-2xl'>
+                                <div className='text-center space-y-1.5 md:space-y-3'>
                                     <h1 className='text-gray-500 font-bold text-3xl'>{adoptionRequest.length}</h1>
                                     <p className='text-2xl font-semibold'>Total </p>
 
                                 </div>
                             </div>
-                            <div className='px-15 py-6 flex justify-center items-center border border-gray-300 shadow-sm rounded-2xl'>
-                                <div className='text-center space-y-3'>
+                            <div className='px-15 py-2 md:py-6 flex justify-center items-center border border-gray-300 shadow-sm rounded-2xl'>
+                                <div className='text-center space-y-1.5 md:space-y-3'>
                                     <h1 className='text-gray-500 font-bold text-3xl'>{pending.length}</h1>
                                     <p className='text-2xl font-semibold'>Pending</p>
 
                                 </div>
                             </div>
-                            <div className='px-15 py-6 flex justify-center items-center border border-gray-300 shadow-sm rounded-2xl'>
-                                <div className='text-center space-y-3'>
+                            <div className='px-15 py-2 md:py-6 flex justify-center items-center border border-gray-300 shadow-sm rounded-2xl'>
+                                <div className='text-center space-y-1.5 md:space-y-3'>
                                     <h1 className='text-gray-500 font-bold text-3xl'>{approve.length}</h1>
                                     <p className='text-2xl font-semibold'>Approved</p>
 
                                 </div>
                             </div>
-                            <div className='px-15 py-6 flex justify-center items-center border border-gray-300 shadow-sm rounded-2xl'>
-                                <div className='text-center space-y-3'>
+                            <div className='px-15 py-2 md:py-6 flex justify-center items-center border border-gray-300 shadow-sm rounded-2xl'>
+                                <div className='text-center space-y-1.5 md:space-y-3'>
                                     <h1 className='text-gray-500 font-bold text-3xl'>{reject.length}</h1>
                                     <p className='text-2xl font-semibold'>Rejected</p>
 
@@ -114,7 +113,7 @@ const MyRequestPage = async () => {
 
                                                             <Table.Cell className={'flex justify-center gap-3'}>
                                                                 <Link href={`/all-pets/${request.petId}`}><Button>View</Button></Link>
-                                                                <DeleteRequest id={request._id} petName={request.petName} />
+                                                                <DeleteRequest id={request._id} petName={request.petName} token={token} />
                                                             </Table.Cell>
                                                             :
                                                             <Table.Cell className={'flex justify-center gap-3'}>
@@ -169,7 +168,7 @@ const MyRequestPage = async () => {
                                             <Button className="w-full">View</Button>
                                         </Link>
                                         {(request.status === 'pending' || request.status === 'rejected') && (
-                                            <DeleteRequest id={request._id} petName={request.petName} />
+                                            <DeleteRequest id={request._id} petName={request.petName} token={token} />
                                         )}
                                     </div>
 

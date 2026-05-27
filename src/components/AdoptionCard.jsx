@@ -20,7 +20,7 @@ const AdoptionCard = ({ singlePet }) => {
 
     const { petName, _id, species, status, breed, age, location, gender, imageURL, updatedAt, userId } = singlePet;
 
-    console.log(status);
+
     const { data: session, isPending } = authClient.useSession()
     const user = isPending ? <p>Loading........</p> : session?.user;
 
@@ -66,7 +66,7 @@ const AdoptionCard = ({ singlePet }) => {
 
             const data = await res.json();
 
-            console.log(data);
+
 
             if (res.status === 400) {
                 toast.error(` ${petName} ${data.message}`)

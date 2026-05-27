@@ -18,6 +18,8 @@ const PetRequestShowCard = async ({ id }) => {
         headers: await headers()
     })
 
+
+
     const requestPet = await getPetsMyListingByPetId(id);
 
 
@@ -74,8 +76,8 @@ const PetRequestShowCard = async ({ id }) => {
                             </Modal.Body>
                             {
                                 status == "avaibale" && <Modal.Footer className="">
-                                    <RequestApprove status={status} id={id} className="w-full" />
-                                    <RequestReject status={status} id={id} className="w-full" />
+                                    <RequestApprove status={status} id={id} token={token} className="w-full" />
+                                    <RequestReject status={status} id={id} token={token} className="w-full" />
                                 </Modal.Footer>
 
 
@@ -90,13 +92,7 @@ const PetRequestShowCard = async ({ id }) => {
                                     </div>
 
                                 </Modal.Body>
-                                <Modal.Footer className="">
-                                    <RequestApprove />
-                                    <RequestReject />
-                                    {/* <Button className="w-full" slot="close">
-                                        <TiDelete /> Reject
-                                    </Button> */}
-                                </Modal.Footer>
+
                                 <Modal.CloseTrigger />
                             </Modal.Dialog>
                     }

@@ -16,8 +16,8 @@ const AllPetsPage = async ({ searchParams }) => {
 
     return (
         <div className=' lg:w-7xl w-[90%] mx-auto'>
-            <div className='my-10 space-y-5'>
-                <h1 className='text-7xl font-bold  '>Browse All Pets </h1>
+            <div className='md:my-10 my-5 space-y-3 md:space-y-5'>
+                <h1 className='md:text-7xl text-5xl font-bold  '>Browse All Pets </h1>
                 <p className='text-lg'>{pets.length} pets available for adoption</p>
             </div>
 

@@ -14,7 +14,7 @@ const SpeciesFilter = () => {
 
     const handleSpecies = (Rabbit) => {
 
-        console.log(Rabbit);
+
 
         const params = new URLSearchParams(searchParams.toString())
 

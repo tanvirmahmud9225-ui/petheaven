@@ -20,7 +20,7 @@ const RegisterPage = () => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
         const userData = Object.fromEntries(formData.entries());
-        console.log(userData);
+
 
 
         const { data, error } = await authClient.signUp.email({

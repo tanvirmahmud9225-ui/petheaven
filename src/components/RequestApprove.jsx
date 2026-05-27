@@ -6,16 +6,12 @@ import { useRouter } from 'next/navigation';
 import React from 'react';
 import { BsCheckCircleFill } from 'react-icons/bs';
 
-const RequestApprove = ({ id, status }) => {
+const RequestApprove = ({ id, status, token }) => {
 
 
     const router = useRouter()
     const handleApprove = async () => {
 
-
-        const { data: jwtToken } = await authClient.token();
-        const token = jwtToken?.token
-        console.log(token);
 
 
 
@@ -27,7 +23,7 @@ const RequestApprove = ({ id, status }) => {
             method: "PATCH",
             headers: {
                 'content-type': 'application/json',
-                token: `Beared ${token}`
+                authorization: `Bearer ${token}`
             },
             body: JSON.stringify(updateData)
 
