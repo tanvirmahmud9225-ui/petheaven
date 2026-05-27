@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { BiUser } from "react-icons/bi";
-import { BsEye, BsEyeSlash } from "react-icons/bs";
+import { BsCheckCircleFill, BsEye, BsEyeSlash, BsXCircleFill } from "react-icons/bs";
 import { FaGoogle } from "react-icons/fa";
 import { HiOutlinePhoto } from "react-icons/hi2";
 import { MdCheck } from "react-icons/md";
@@ -14,7 +14,7 @@ import { TfiEmail, TfiLock } from "react-icons/tfi";
 
 const RegisterPage = () => {
 
-    const [isVisible, setIsVisible] = useState(false);
+    // const [isVisible, setIsVisiVle] = useState(false);
     const router = useRouter();
     const onSubmit = async (e) => {
         e.preventDefault();
@@ -42,6 +42,23 @@ const RegisterPage = () => {
         })
     }
 
+
+
+
+
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+    const [isVisible, setIsVisible] = useState(false);
+    const [isVisibleConfirm, setIsVisibleConfirm] = useState(false);
+
+    const rules = [
+        { label: "At least 6 characters", ok: password.length >= 6 },
+        { label: "One uppercase letter", ok: /[A-Z]/.test(password) },
+        { label: "One lowercase letter", ok: /[a-z]/.test(password) },
+    ];
+
+    const allRulesPass = rules.every(r => r.ok);
+    const passwordsMatch = confirmPassword.length > 0 && password === confirmPassword;
 
 
     return (
@@ -117,7 +134,7 @@ const RegisterPage = () => {
 
 
                     {/* Password */}
-                    <TextField className="w-full relative" name="password">
+                    {/* <TextField className="w-full relative" name="password">
                         <Label className="text-lg text-gray-800 mb-1 after:content-none">Password</Label>
                         <TfiLock className="absolute top-13 left-4 text-xl text-gray-600" />
                         <InputGroup className={'flex justify-between pr-4'}>
@@ -138,8 +155,87 @@ const RegisterPage = () => {
                                 </Button>
                             </InputGroup.Suffix>
                         </InputGroup>
+                    </TextField> */}
+
+
+                    {/* ───── Password Field ───── */}
+                    <TextField className="w-full relative" name="password">
+                        <Label className="text-lg text-gray-800 mb-1 after:content-none">Password</Label>
+                        <TfiLock className="absolute top-13 left-4 text-xl text-gray-600" />
+                        <InputGroup className={'flex justify-between pr-4'}>
+                            <InputGroup.Input
+                                className="w-full max-w-[280px] pl-13 py-3 text-lg"
+                                type={isVisible ? "text" : "password"}
+                                placeholder="Password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
+                            <InputGroup.Suffix className="pr-0">
+                                <Button
+                                    isIconOnly
+                                    aria-label={isVisible ? "Hide password" : "Show password"}
+                                    size="sm"
+                                    variant="ghost"
+                                    onPress={() => setIsVisible(!isVisible)}
+                                >
+                                    {isVisible ? <BsEye className="size-5" /> : <BsEyeSlash className="size-5" />}
+                                </Button>
+                            </InputGroup.Suffix>
+                        </InputGroup>
+
+                        {/* Password rules — শুধু লেখা শুরু করলে দেখাবে */}
+                        {password.length > 0 && (
+                            <ul className="mt-2 space-y-1">
+                                {rules.map((rule, i) => (
+                                    <li key={i} className="flex items-center gap-2 text-sm">
+                                        {rule.ok
+                                            ? <BsCheckCircleFill className="text-green-500 size-4" />
+                                            : <BsXCircleFill className="text-red-400 size-4" />
+                                        }
+                                        <span className={rule.ok ? "text-green-600" : "text-red-400"}>
+                                            {rule.label}
+                                        </span>
+                                    </li>
+                                ))}
+                            </ul>
+                        )}
                     </TextField>
 
+                    {/* ───── Confirm Password Field ───── */}
+                    <TextField className="w-full relative" name="confirmPassword">
+                        <Label className="text-lg text-gray-800 mb-1 after:content-none">Confirm Password</Label>
+                        <TfiLock className="absolute top-13 left-4 text-xl text-gray-600" />
+                        <InputGroup className={'flex justify-between pr-4'}>
+                            <InputGroup.Input
+                                className="w-full max-w-[280px] pl-13 py-3 text-lg"
+                                type={isVisibleConfirm ? "text" : "password"}
+                                placeholder="Confirm Password"
+                                value={confirmPassword}
+                                onChange={(e) => setConfirmPassword(e.target.value)}
+                            />
+                            <InputGroup.Suffix className="pr-0">
+                                <Button
+                                    isIconOnly
+                                    aria-label={isVisibleConfirm ? "Hide password" : "Show password"}
+                                    size="sm"
+                                    variant="ghost"
+                                    onPress={() => setIsVisibleConfirm(!isVisibleConfirm)}
+                                >
+                                    {isVisibleConfirm ? <BsEye className="size-5" /> : <BsEyeSlash className="size-5" />}
+                                </Button>
+                            </InputGroup.Suffix>
+                        </InputGroup>
+
+                        {/* Match message — শুধু লেখা শুরু করলে দেখাবে */}
+                        {confirmPassword.length > 0 && (
+                            <p className={`mt-2 text-sm flex items-center gap-2 ${passwordsMatch ? "text-green-600" : "text-red-400"}`}>
+                                {passwordsMatch
+                                    ? <><BsCheckCircleFill className="size-4" /> Passwords match</>
+                                    : <><BsXCircleFill className="size-4" /> Passwords do not match</>
+                                }
+                            </p>
+                        )}
+                    </TextField>
 
 
 
