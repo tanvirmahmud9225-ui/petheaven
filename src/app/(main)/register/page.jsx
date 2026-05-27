@@ -62,7 +62,7 @@ const RegisterPage = () => {
 
 
     return (
-        <div className="max-w-7xl md:w-[95%] lg:w-full  h-screen flex flex-col justify-center bg-gray-200 mt-20 mb-30 mx-auto rounded-2xl overflow-hidden">
+        <div className="max-w-7xl w-[95vw] md:h-[90vh] lg:h-full flex flex-col justify-center bg-gray-200 mt-20 mb-30 mx-auto rounded-2xl overflow-hidden">
             <div>
                 <h1 className='text-4xl font-bold text-center my-5'>Create your account</h1>
                 <p className="text-center">Start your adoption journey today</p>
@@ -76,7 +76,7 @@ const RegisterPage = () => {
                 <Form className="flex md:w-150 sm:w-120 w-90  flex-col gap-4" onSubmit={onSubmit}>
                     {/* name */}
                     <TextField
-                        className="relative"
+                        className="relative "
                         type="text"
                         isRequired
 
@@ -89,7 +89,7 @@ const RegisterPage = () => {
                     >
                         <Label className="text-lg text-gray-800 mb-1 after:content-none">Full Name</Label>
                         <BiUser className="absolute top-13 left-4 text-xl text-gray-600" />
-                        <Input className={` pl-13 py-3 text-lg`} name="name" placeholder="Enter Your Name" />
+                        <Input className={` pl-13 py-3 text-lg border border-gray-300`} name="name" placeholder="Enter Your Name" />
                         <FieldError />
                     </TextField>
 
@@ -114,8 +114,6 @@ const RegisterPage = () => {
 
                     <TextField
                         className="relative"
-                        isRequired
-
                         type="text"
                         validate={(value) => {
                             if (value.length < 3) {

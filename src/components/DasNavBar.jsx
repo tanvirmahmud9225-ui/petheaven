@@ -56,7 +56,8 @@ const DasNavBar = () => {
                     <div className="hidden md:flex gap-8 items-center">
                         <Link href="/" className="font-medium text-slate-700 hover:text-blue-600 transition-colors">Home</Link>
                         <Link href="/all-pets" className="font-medium text-slate-700 hover:text-blue-600 transition-colors">All Pets</Link>
-
+                        <Link href="/dashboard/myRequests" className="font-medium text-slate-700 hover:text-blue-600 transition-colors">Dashboard</Link>
+                        <Link href="/dashboard/addPet" className="font-medium text-slate-700 hover:text-blue-600 transition-colors">Add Pet</Link>
                     </div>
 
                     <div className="hidden md:flex items-center gap-4">

@@ -57,6 +57,8 @@ export function MainNavbar() {
                     <div className="hidden md:flex gap-8 items-center">
                         <Link href="/" className="font-medium text-slate-700 hover:text-blue-600 transition-colors">Home</Link>
                         <Link href="/all-pets" className="font-medium text-slate-700 hover:text-blue-600 transition-colors">All Pets</Link>
+                        <Link href="/dashboard/myRequests" className="font-medium text-slate-700 hover:text-blue-600 transition-colors">Dashboard</Link>
+                        <Link href="/dashboard/addPet" className="font-medium text-slate-700 hover:text-blue-600 transition-colors">Add Pet</Link>
 
                     </div>
 
@@ -117,19 +119,22 @@ export function MainNavbar() {
                     <div className="flex md:hidden items-center gap-4">
                         {/* moblie avatar */}
                         <div className=" relative group justify-self-end">
-                            <button className="flex items-center gap-3 p-1 rounded-full hover:bg-muted transition-colors border border-transparent hover:border-border">
-                                <Image
-                                    width={40}
-                                    height={40}
-                                    src={user?.image}
-                                    alt="avatar"
-                                    className="w-10 h-10 rounded-full object-cover ring-2 ring-blue-600/10"
-                                />
-                                <div className="text-left hidden lg:block">
-                                    <p className="text-sm font-bold truncate max-w-25">{user?.name}</p>
+                            {
+                                user &&
+                                <button className="flex items-center gap-3 p-1 rounded-full hover:bg-muted transition-colors border border-transparent hover:border-border">
+                                    <Image
+                                        width={40}
+                                        height={40}
+                                        src={user?.image}
+                                        alt="avatar"
+                                        className="w-10 h-10 rounded-full object-cover ring-2 ring-blue-600/10"
+                                    />
+                                    <div className="text-left hidden lg:block">
+                                        <p className="text-sm font-bold truncate max-w-25">{user?.name}</p>
 
-                                </div>
-                            </button>
+                                    </div>
+                                </button>
+                            }
                             <div className="absolute right-0 top-12 w-56 bg-white border border-slate-200 rounded-2xl shadow-2xl hidden group-hover:flex flex-col py-2 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
                                 <div className="px-4 py-3 border-b border-slate-100">
                                     <p className="font-bold text-sm">Welcome back!</p>
