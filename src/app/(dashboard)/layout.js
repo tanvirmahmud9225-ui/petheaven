@@ -2,18 +2,25 @@
 import DasNavBar from '@/components/DasNavBar';
 import { authClient, signOut } from '@/lib/auth-client';
 import { Button, ListBox, ListBoxItem, Tab, Tabs } from '@heroui/react';
-import { Heart, PawPrint } from 'lucide-react';
+import { Heart } from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import { CiMenuBurger } from 'react-icons/ci';
 import { FaPlus } from 'react-icons/fa';
-import { MdOutlinePets, MdOutlineStickyNote2 } from 'react-icons/md';
+import { MdLogout, MdOutlinePets, MdOutlineStickyNote2 } from 'react-icons/md';
 
 
 
 
 const layout = ({ children }) => {
+
+
+    const { data: session, isPending } = authClient.useSession()
+    const user = isPending ? <p>Loading........</p> : session?.user;
+
+
     const pathname = usePathname();
     const [isOpen, setIsOpen] = useState(false); // মোবাইল মেনু ওপেন/ক্লোজ স্টেট
     const router = useRouter()
@@ -23,7 +30,7 @@ const layout = ({ children }) => {
         await authClient.signOut({
             fetchOptions: {
                 onSuccess: () => {
-                    router.replace("/"); // redirect to login page
+                    router.replace("/login"); // redirect to login page
                 },
             },
         });
@@ -104,9 +111,9 @@ const layout = ({ children }) => {
 
             <div className="mt-auto pt-6 border-t border-gray-300">
                 <Button
-                    onClick={() => handleSignOut()}
+                    onClick={handleSignOut}
                     variant='ghost' className="w-full flex items-center gap-2 px-4 py-3 text-xl font-semibold text-rose-500 hover:bg-rose-50 rounded-xl transition-all">
-                    🚪 Logout
+                    <MdLogout className='size-7' /> Logout
                 </Button>
             </div>
         </div>
@@ -151,12 +158,26 @@ const layout = ({ children }) => {
                                 <div className="p-2 bg-[#68c69b] rounded-xl group-hover:rotate-12 transition-transform">
                                     <MdOutlinePets className="w-6 h-6 text-white" />
                                 </div>
-                                <span className="font-extrabold text-2xl tracking-tight text-[#68c69b]">
-                                    PetHeaven
-                                </span>
+                                <div className=" relative group justify-self-end">
+                                    {
+                                        user &&
+                                        <button className="flex items-center gap-3 p-1 rounded-full hover:bg-muted transition-colors border border-transparent hover:border-border">
+                                            <Image
+                                                width={40}
+                                                height={40}
+                                                src={user?.image}
+                                                alt="avatar"
+                                                className="w-10 h-10 rounded-full object-cover ring-2 ring-blue-600/10"
+                                            />
+                                            <div className="text-left hidden lg:block">
+                                                <p className="text-sm font-bold truncate max-w-25">{user?.name}</p>
+                                            </div>
+                                        </button>
+                                    }
+                                </div>
                             </Link>
                             <div>
-                                <h1 className='text-2xl text-center font-bold'>Dashboard</h1>
+                                <h1 className='text-2xl text-center font-bold'>My Dashboard</h1>
                             </div>
                         </div>
                         <div className="w-8"></div> {/* এলাইনমেন্ট ব্যালেন্স করার জন্য ফাঁকা স্পেস */}

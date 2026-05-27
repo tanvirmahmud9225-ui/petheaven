@@ -46,19 +46,23 @@ const DeleteCard = ({ _id }) => {
                         <Modal.CloseTrigger />
                         <Modal.Header>
 
-                            <Modal.Heading>Welcome to HeroUI</Modal.Heading>
+                            <Modal.Heading>Delete Pet Listing </Modal.Heading>
                         </Modal.Header>
                         <Modal.Body>
                             <p>
-                                A beautiful, fast, and modern React UI library for building accessible and
-                                customizable web applications with ease.
+                                Are you sure you want to permanently delte listing? This cannot be undone.
                             </p>
                         </Modal.Body>
                         <Modal.Footer>
                             <Button
+                                variant="outline"
+                                className="w-full" slot="close">
+                                Keep Listing
+                            </Button>
+                            <Button
                                 onClick={() => handleDeletePet()}
                                 className="w-full" slot="close">
-                                Continue
+                                Delete Permanently
                             </Button>
                         </Modal.Footer>
                     </Modal.Dialog>

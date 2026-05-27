@@ -27,6 +27,7 @@ const MyRequestPage = async () => {
     const approve = adoptionRequest.filter(request => request.status == "Approved")
     const reject = adoptionRequest.filter(request => request.status == "Rejected")
 
+    console.log(adoptionRequest);
 
 
 

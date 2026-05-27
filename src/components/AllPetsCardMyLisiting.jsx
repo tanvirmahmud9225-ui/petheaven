@@ -9,11 +9,14 @@ import { GoDotFill } from "react-icons/go";
 import { IoLocationSharp } from "react-icons/io5";
 import PetRequestShowCard from "./PetRequestShowCard";
 import DeleteCard from "./DeleteCard";
-import { getPetRequest } from "@/lib/data";
+import { getPetRequest, getPetsMyListingByPetId } from "@/lib/data";
 
-const AllPetsCardMyLisiting = ({ pet }) => {
+const AllPetsCardMyLisiting = async ({ pet }) => {
     const { petName, _id, species, breed, age, location, gender, imageURL, status } = pet;
 
+    const requestPet = await getPetsMyListingByPetId(_id);
+
+    const statu = requestPet.status
 
 
 
@@ -67,9 +70,16 @@ const AllPetsCardMyLisiting = ({ pet }) => {
                     <p>{gender}</p>
                 </div>
 
-                <div className="flex items-center gap-2 text-md text-slate-500 font-bold">
-                    <IoLocationSharp />
-                    <p>{location}</p>
+                <div className="flex justify-between items-center">
+                    <div className="flex items-center gap-2 text-md text-slate-500 font-bold">
+                        <IoLocationSharp />
+                        <p>{location}</p>
+                    </div>
+                    <div>
+                        {
+                            statu == "pending" && <p className="text-amber-700 font-bold">Requested</p>
+                        }
+                    </div>
                 </div>
 
                 <div className="pt-2 mt-auto border-t border-slate-100 space-y-3">

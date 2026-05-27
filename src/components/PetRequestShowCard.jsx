@@ -23,6 +23,8 @@ const PetRequestShowCard = async ({ id }) => {
     const requestPet = await getPetsMyListingByPetId(id);
 
 
+
+
     const singlePet = await getPetById(id, token);
 
     const status = singlePet.status;
@@ -75,11 +77,10 @@ const PetRequestShowCard = async ({ id }) => {
 
                             </Modal.Body>
                             {
-                                status == "avaibale" && <Modal.Footer className="">
+                                requestPet?.status == "pending" && <Modal.Footer className="">
                                     <RequestApprove status={status} id={id} token={token} className="w-full" />
                                     <RequestReject status={status} id={id} token={token} className="w-full" />
                                 </Modal.Footer>
-
 
                             }
                             <Modal.CloseTrigger />
