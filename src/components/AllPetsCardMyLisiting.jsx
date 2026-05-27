@@ -101,7 +101,7 @@ const AllPetsCardMyLisiting = async ({ pet }) => {
                     <div className="flex gap-4 items-center">
 
                         <PetRequestShowCard id={_id} status={status} />
-                        <DeleteCard _id={_id} />
+                        <DeleteCard _id={_id} petName={petName} />
                     </div>
                 </div>
             </div>

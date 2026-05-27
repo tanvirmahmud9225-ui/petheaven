@@ -2,8 +2,9 @@
 import { authClient } from "@/lib/auth-client";
 import { Button, Modal } from "@heroui/react";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
-const DeleteCard = ({ _id }) => {
+const DeleteCard = ({ _id, petName }) => {
 
 
 
@@ -23,8 +24,11 @@ const DeleteCard = ({ _id }) => {
             },
         })
         const data = await res.json()
+        console.log(data);
+
 
         if (data.acknowledged) {
+            toast.success(`${petName} is deleted`)
             router.refresh()
         }
         return data
