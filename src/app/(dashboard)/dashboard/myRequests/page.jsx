@@ -109,7 +109,7 @@ const MyRequestPage = async () => {
                                                     }</Table.Cell>
                                                     <Table.Cell>{request.status}</Table.Cell>
                                                     {
-                                                        request.status === 'pending' || request.status === 'rejected' ?
+                                                        request.status === 'pending' ?
 
                                                             <Table.Cell className={'flex justify-center gap-3'}>
                                                                 <Link href={`/all-pets/${request.petId}`}><Button>View</Button></Link>
